@@ -18,6 +18,9 @@
 
     <!-- thymeleaf에서 param은 제공 해줌 -->
     <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
+    <h2 th:if="${param.status}" th:text="${param.itemId}"></h2>
+
+
 
     <div>
         <label for="itemId">상품 ID</label>

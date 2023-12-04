@@ -4,6 +4,7 @@ import hello.itemservice.domain.item.Item;
 import hello.itemservice.domain.item.ItemRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,6 +16,7 @@ import java.util.List;
 @Controller
 @RequestMapping("/basic/items")
 @RequiredArgsConstructor
+@Slf4j
 public class BasicItemController {
 
     private final ItemRepository itemRepository;
@@ -44,6 +46,7 @@ public class BasicItemController {
 
     @GetMapping("/{itemId}")
     public String item(@PathVariable long itemId, Model model){
+        log.info("call /basic/items/{itemId} :: itemId = {}" , itemId);
         Item item = itemRepository.findById(itemId);
         model.addAttribute("item",item);
         return "basic/item";
@@ -127,6 +130,7 @@ public class BasicItemController {
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
 
+        //return "redirect:/basic/items/" + savedItem.getId();
         return "redirect:/basic/items/{itemId}";
     }
 
