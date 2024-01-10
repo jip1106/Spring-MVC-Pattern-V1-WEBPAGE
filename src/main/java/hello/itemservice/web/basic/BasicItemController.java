@@ -143,6 +143,15 @@ public class BasicItemController {
         return "basic/editForm";
     }
 
+    @GetMapping("/{itemId}/edit/{tmpParam}")
+    public String editFormTmpParam(@PathVariable Long itemId, Model model, @PathVariable String tmpParam){
+        log.info("tmpParam {}" ,tmpParam);
+        Item item = itemRepository.findById(itemId);
+        model.addAttribute("item",item);
+
+        return "basic/editForm";
+    }
+
     @PostMapping("/{itemId}/edit")
     public String edit(@PathVariable Long itemId, Item item){
 

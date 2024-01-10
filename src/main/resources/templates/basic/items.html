@@ -4,11 +4,30 @@
     <meta charset="utf-8">
     <!-- link href="../css/bootstrap.min.css" rel="stylesheet" -->
 
-    <link href="../css/bootstrap.min.css"
-          th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <link href="../css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
 </head>
-<body>
 
+<script>
+    function goLink(url,param1,param2){
+        console.log(url);
+        console.log(param1);
+        console.log(param2);
+        if(confirm(url)){
+            location.href = url;
+        }
+    }
+
+    function detail(itemId){
+        console.log(itemId);
+
+        let url = "/basic/items/" + itemId;
+
+        if(confirm("상세페이지 이동?")){
+            location.href = url;
+        }
+    }
+</script>
+<body>
 
 <div class="container" style="max-width: 600px">
     <div class="py-5 text-center">
@@ -19,8 +38,23 @@
             <button class="btn btn-primary float-end"
                     onclick="location.href='addForm.html'"
                     th:onclick="|location.href='@{/basic/items/add}'|"
-                    type="button">상품
-                등록</button>
+                    type="button">상품 등록</button>
+        </div>
+    </div>
+
+    <hr class="my-4">
+
+    <div class="row">
+        <div class="col">
+            <button class="btn btn-primary float-end"
+                    onclick="location.href='addForm.html'"
+                    th:onclick="|javascript:
+                        goLink(
+                            '/basic/items/add'
+                            ,'2'
+                            ,'3'
+                        )|"
+                    type="button">상품 등록(js)</button>
         </div>
     </div>
     <hr class="my-4">
@@ -29,18 +63,23 @@
             <thead>
             <tr>
                 <th>ID</th>
-                <th>상품명</th>
-                <th>상품명</th>
+                <th>상품명 추가 param</th>
+                <th>상품명 || 이동</th>
+                <th>상품명 JS</th>
                 <th>가격</th>
                 <th>수량</th>
             </tr>
             </thead>
             <tbody>
             <tr th:each="item : ${items}">
+                <!--
+                    URL링크 표현식 :: @{...}
+                 -->
                 <td><a href="item.html" th:href="@{/basic/items/{itemId}(itemId=${item.id})}" th:text="${item.id}">회원id</a></td>
-                <td><a href="item.html" th:href="@{/basic/items/{itemId}(itemId=${item.id})}" th:text="${item.itemName}">상품명</a></td>
+                <td><a href="item.html" th:href="@{/basic/items/{itemId}(itemId=${item.id} , tmpParam='test')}" th:text="${item.itemName}">상품명 추가 param</a></td>
                 <td><a href="item.html" th:href="@{|/basic/items/${item.id}|}" th:text="${item.itemName}">상품명</a></td>
-                <td th:text="${item.price}">10000</td>
+                <td><a href="item.html" th:href="| javascript:detail(${item.id}); |" th:text="${item.itemName}">상품명</a></td>
+                <td th:text="${item.price}">10000</td>  <!-- 변수표현식 :: ${...} -->
                 <td th:text="${item.quantity}">10</td>
             </tr>
             </tbody>

@@ -49,6 +49,13 @@
                     onclick="location.href='editForm.html'"
                     th:onclick="|location.href='@{/basic/items/{itemId}/edit(itemId=${item.id})}'|"
                     type="button">상품 수정</button>
+
+
+            <!-- 파라미터 넘기기 -->
+            <button class="w-100 btn btn-primary btn-lg"
+                    onclick="location.href='editForm.html'"
+                    th:onclick="|location.href='@{/basic/items/{itemId}/edit/{tmpParam}(itemId=${item.id}, tmpParam=1)}'|"
+                    type="button">상품 수정</button>
         </div>
         <div class="col">
             <button class="w-100 btn btn-secondary btn-lg"
