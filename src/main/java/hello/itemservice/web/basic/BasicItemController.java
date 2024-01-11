@@ -124,11 +124,25 @@ public class BasicItemController {
     @PostMapping("/add")
     public String addItemV6(Item item, RedirectAttributes redirectAttributes){
 
+        /**
+         * 리다이렉트 할 때 간단히 status=true 를 추가해보자. 그리고 뷰 템플릿에서 이 값이 있으면,
+         * 저장되었습니다. 라는 메시지를 출력해보자.
+         * 실행해보면 다음과 같은 리다이렉트 결과가 나온다.
+         *  http://localhost:8080/basic/items/3?status=true
+         *
+         * RedirectAttributes
+         *
+         * RedirectAttributes 를 사용하면 URL 인코딩도 해주고, pathVarible , 쿼리 파라미터까지 처리해준다.
+         *  redirect:/basic/items/{itemId}
+         *      pathVariable 바인딩: {itemId}
+         *      나머지는 쿼리 파라미터로 처리: ?status=tru
+         */
         Item savedItem = itemRepository.save(item);
 
         //RedirectAttributes를 사용하면
         redirectAttributes.addAttribute("itemId", savedItem.getId());
         redirectAttributes.addAttribute("status", true);
+        redirectAttributes.addAttribute("tmpItemId", savedItem.getId());
 
         //return "redirect:/basic/items/" + savedItem.getId();
         return "redirect:/basic/items/{itemId}";

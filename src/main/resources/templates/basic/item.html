@@ -18,7 +18,12 @@
 
     <!-- thymeleaf에서 param은 제공 해줌 -->
     <h2 th:if="${param.status}" th:text="'저장 완료'"></h2>
-    <h2 th:if="${param.status}" th:text="${param.itemId}"></h2>
+    <h2></h2>
+    <h2 th:if="${param.status}" th:text="${item.id}"></h2>
+    <h2></h2>
+    <h2 th:if="${param.status}" th:text="|아이템 엔티티에 담긴 itemId 입니다. ${item.id}|"></h2>
+    <h2></h2>
+    <h2 th:if="${param.status}" th:text="|RedirectAttributes에 담긴 itemId 입니다. ${param.tmpItemId}|"></h2>
 
 
 
